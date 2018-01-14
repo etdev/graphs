@@ -38,7 +38,7 @@ describe Graphs::Graph do
         end
 
         it "throws OutOfBoundsError for addition when vertices don't exist" do
-          expect { @graph.add_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
+          expect { @graph.add_edge(1, 5) }.to raise_error(Graphs::BoundsChecking::OutOfBoundsError)
         end
 
         it "can remove edges" do
@@ -56,7 +56,7 @@ describe Graphs::Graph do
         end
 
         it "throws OutOfBoundsError for removal when vertices don't exist" do
-          expect { @graph.remove_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
+          expect { @graph.remove_edge(1, 5) }.to raise_error(Graphs::BoundsChecking::OutOfBoundsError)
         end
       end
 

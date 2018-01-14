@@ -1,7 +1,7 @@
 module Graphs
   module BoundsChecking
-    def with_bounds_check(*indices)
-      indices.each { |i| raise OutOfBoundsError if i >= vertex_count }
+    def with_bounds_check(graph, *indices)
+      indices.each { |i| raise OutOfBoundsError if i >= graph.vertex_count }
 
       yield
     end

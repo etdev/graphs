@@ -1,4 +1,3 @@
-#require_relative "../list_graph/list_node"
 # Graph storage implementation using an adjacency list
 
 # If graph has an edge at (i, j), linked list i contains a node with value j
@@ -13,6 +12,8 @@
 module Graphs
   module Storage
     class ListStrategy
+      include BoundsChecking
+
       attr_accessor :elements
       attr_reader :vertex_count
 
@@ -22,7 +23,9 @@ module Graphs
       end
 
       def edge?(i, j)
-        elements[i].contains?(j)
+        with_bounds_check(self, i, j) do
+          elements[i].contains?(j)
+        end
       end
 
       def incident_vertices(i)
@@ -30,7 +33,7 @@ module Graphs
       end
 
       def to_s
-        "[#{elements.map(&:to_s).join(", ")}]"
+        "[#{elements.map(&:to_s).join(', ')}]"
       end
 
       private

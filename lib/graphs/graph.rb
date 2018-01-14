@@ -1,30 +1,27 @@
-require "graphs/factories/edge_strategy_factory"
-require "graphs/factories/storage_strategy_factory"
-require "graphs/bounds_checking"
-
 module Graphs
   class Graph
-    include BoundsChecking
-
     def initialize(vertex_count, storage_type: :list, edge_type: :directed)
-      @storage_strategy = StorageStrategyFactory.for(storage_type, vertex_count)
-      @edge_strategy = EdgeStrategyFactory.for(storage_type, edge_type)
+      @storage_strategy = StorageStrategyFactory.new.for(
+        storage_type,
+        vertex_count
+      )
+      @edge_strategy = EdgeStrategyFactory.new.for(storage_type, edge_type)
     end
 
     def add_edge(i, j)
-      with_bounds_check(i, j) { edge_strategy.add_edge(self, i, j) }
+      edge_strategy.add_edge(self, i, j)
     end
 
     def remove_edge(i, j)
-      with_bounds_check(i, j) { edge_strategy.remove_edge(self, i, j) }
+      edge_strategy.remove_edge(self, i, j)
     end
 
     def edge?(i, j)
-      with_bounds_check(i, j) { storage_strategy.edge?(i, j) }
+      storage_strategy.edge?(i, j)
     end
 
     def incident_vertices(i)
-      with_bounds_check(i) { storage_strategy.incident_vertices(i) }
+      storage_strategy.incident_vertices(i)
     end
 
     def elements

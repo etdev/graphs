@@ -7,9 +7,12 @@
 # [ 10, 11, 12, 13 ]
 # [ 20, 21, 22, 23 ]
 # [ 30, 31, 32, 33 ]
+
 module Graphs
   module Storage
     class MatrixStrategy
+      include BoundsChecking
+
       HAS_VERTEX = 1
       NO_VERTEX = 0
 
@@ -22,7 +25,9 @@ module Graphs
       end
 
       def edge?(i, j)
-        elements[i][j] == HAS_VERTEX
+        with_bounds_check(self, i, j) do
+          elements[i][j] == HAS_VERTEX
+        end
       end
 
       def incident_vertices(i)

@@ -1,3 +1,6 @@
+require "pry"
+require "pry-byebug"
+
 describe Graphs::Graph do
   context "when stored as adjacency list" do
     describe "creation" do
@@ -26,7 +29,7 @@ describe Graphs::Graph do
         end
 
         it "throws OutOfBoundsError when called with non-existent vertices" do
-          expect { @graph.add_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
+          expect { @graph.add_edge(1, 5) }.to raise_error(Graphs::BoundsChecking::OutOfBoundsError)
         end
       end
 
@@ -66,7 +69,7 @@ describe Graphs::Graph do
         end
 
         it "throws OutOfBoundsError when called with non-existent vertices" do
-          expect { @graph.remove_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
+          expect { @graph.remove_edge(1, 5) }.to raise_error(Graphs::BoundsChecking::OutOfBoundsError)
         end
       end
 
@@ -106,7 +109,7 @@ describe Graphs::Graph do
       end
 
       it "throws OutOfBoundsError when called with non-existent vertices" do
-        expect { @graph.edge?(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
+        expect { @graph.edge?(1, 5) }.to raise_error(Graphs::BoundsChecking::OutOfBoundsError)
       end
     end
 

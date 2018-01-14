@@ -5,7 +5,10 @@ module Graphs
         storage_type,
         vertex_count
       )
-      @edge_strategy = EdgeStrategyFactory.new.for(storage_type, edge_type)
+      @edge_strategy = Edge::EdgeStrategyFactory.new.for(
+        storage_type,
+        edge_type
+      )
     end
 
     def add_edge(i, j)

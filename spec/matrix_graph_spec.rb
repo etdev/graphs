@@ -23,7 +23,7 @@ describe Graphs::Graph do
         end
 
         it "can check if edge exists" do
-          @graph.elements[1][2] = Graphs::MatrixStrategy::HAS_VERTEX
+          @graph.elements[1][2] = Graphs::Storage::MatrixStrategy::HAS_VERTEX
           expect(@graph.edge?(1, 2)).to be true
         end
 

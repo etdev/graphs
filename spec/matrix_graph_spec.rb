@@ -1,12 +1,17 @@
-require_relative "../lib/graph/graph"
+require "graphs"
 
-describe Graph do
+describe Graphs::Graph do
   context "when stored as an adjacency matrix" do
     describe "creation" do
       it "creates blank graph successfully" do
-        graph = Graph.new(4, storage_type: :matrix)
+        graph = Graphs::Graph.new(4, storage_type: :matrix)
         expect(graph.to_s).to eq(
-          "[0, 0, 0, 0]\n[0, 0, 0, 0]\n[0, 0, 0, 0]\n[0, 0, 0, 0]"
+          <<~STR.chomp
+            ["0", "0", "0", "0"]
+            ["0", "0", "0", "0"]
+            ["0", "0", "0", "0"]
+            ["0", "0", "0", "0"]
+          STR
         )
       end
     end
@@ -14,11 +19,11 @@ describe Graph do
     describe "edges" do
       context "undirected" do
         before do
-          @graph = Graph.new(4, storage_type: :matrix, edge_type: :undirected)
+          @graph = Graphs::Graph.new(4, storage_type: :matrix, edge_type: :undirected)
         end
 
         it "can check if edge exists" do
-          @graph.elements[1][2] = MatrixStrategy::HAS_VERTEX
+          @graph.elements[1][2] = Graphs::MatrixStrategy::HAS_VERTEX
           expect(@graph.edge?(1, 2)).to be true
         end
 
@@ -33,7 +38,7 @@ describe Graph do
         end
 
         it "throws OutOfBoundsError for addition when vertices don't exist" do
-          expect { @graph.add_edge(1, 5) }.to raise_error(Graph::OutOfBoundsError)
+          expect { @graph.add_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
         end
 
         it "can remove edges" do
@@ -51,13 +56,13 @@ describe Graph do
         end
 
         it "throws OutOfBoundsError for removal when vertices don't exist" do
-          expect { @graph.remove_edge(1, 5) }.to raise_error(Graph::OutOfBoundsError)
+          expect { @graph.remove_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
         end
       end
 
       context "directed" do
         before do
-          @graph = Graph.new(4, storage_type: :matrix, edge_type: :directed)
+          @graph = Graphs::Graph.new(4, storage_type: :matrix, edge_type: :directed)
         end
 
         describe "adding edges" do
@@ -81,7 +86,7 @@ describe Graph do
 
     describe "incident_vertices" do
       before do
-        @graph = Graph.new(4, storage_type: :matrix)
+        @graph = Graphs::Graph.new(4, storage_type: :matrix)
       end
 
       it "returns an array of vertices incident to the supplied vertex" do

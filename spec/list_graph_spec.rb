@@ -1,10 +1,8 @@
-require_relative "../lib/graph/graph"
-
-describe Graph do
+describe Graphs::Graph do
   context "when stored as adjacency list" do
     describe "creation" do
       it "creates blank graph successfully" do
-        graph = Graph.new(4)
+        graph = Graphs::Graph.new(4)
         expect(graph.to_s).to eq(
           "[nil, nil, nil, nil]"
         )
@@ -14,7 +12,7 @@ describe Graph do
     describe "adding edges" do
       context "undirected" do
         before do
-          @graph = Graph.new(4, edge_type: :undirected)
+          @graph = Graphs::Graph.new(4, edge_type: :undirected)
         end
 
         it "adds edge successfully" do
@@ -28,13 +26,13 @@ describe Graph do
         end
 
         it "throws OutOfBoundsError when called with non-existent vertices" do
-          expect { @graph.add_edge(1, 5) }.to raise_error(Graph::OutOfBoundsError)
+          expect { @graph.add_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
         end
       end
 
       context "directed" do
         before do
-          @graph = Graph.new(4, edge_type: :directed)
+          @graph = Graphs::Graph.new(4, edge_type: :directed)
         end
 
         it "adds edge successfully" do
@@ -52,7 +50,7 @@ describe Graph do
     describe "removing edges" do
       context "undirected" do
         before do
-          @graph = Graph.new(4, edge_type: :undirected)
+          @graph = Graphs::Graph.new(4, edge_type: :undirected)
         end
 
         it "removes edge successfully" do
@@ -68,13 +66,13 @@ describe Graph do
         end
 
         it "throws OutOfBoundsError when called with non-existent vertices" do
-          expect { @graph.remove_edge(1, 5) }.to raise_error(Graph::OutOfBoundsError)
+          expect { @graph.remove_edge(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
         end
       end
 
       context "directed" do
         before do
-          @graph = Graph.new(4, edge_type: :directed)
+          @graph = Graphs::Graph.new(4, edge_type: :directed)
         end
 
         it "removes edge successfully" do
@@ -95,7 +93,7 @@ describe Graph do
 
     describe "edge?" do
       before do
-        @graph = Graph.new(4)
+        @graph = Graphs::Graph.new(4)
       end
 
       it "returns false when edge not found" do
@@ -108,13 +106,13 @@ describe Graph do
       end
 
       it "throws OutOfBoundsError when called with non-existent vertices" do
-        expect { @graph.edge?(1, 5) }.to raise_error(Graph::OutOfBoundsError)
+        expect { @graph.edge?(1, 5) }.to raise_error(Graphs::Graph::OutOfBoundsError)
       end
     end
 
     describe "incident_vertices" do
       before do
-        @graph = Graph.new(4)
+        @graph = Graphs::Graph.new(4)
       end
 
       it "returns an array of vertices incident to the supplied vertex" do

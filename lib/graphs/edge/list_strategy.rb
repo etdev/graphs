@@ -1,7 +1,7 @@
-# Strategy for adding and removing edges from an undirected matrix graph
+# Strategy for adding and removing edges from an undirected List Graph
 module Graphs
   module Edge
-    class MatrixEdgeStrategy
+    class ListStrategy
       include BoundsChecking
 
       def initialize(edge_type: :directed)
@@ -10,21 +10,15 @@ module Graphs
 
       def add_edge(graph, i, j)
         with_bounds_check(graph, i, j) do
-          graph.elements[i][j] = Storage::MatrixStrategy::HAS_VERTEX
-
-          if undirected?
-            graph.elements[j][i] = Storage::MatrixStrategy::HAS_VERTEX
-          end
+          graph.elements[i].add(j)
+          graph.elements[j].add(i) if undirected?
         end
       end
 
       def remove_edge(graph, i, j)
         with_bounds_check(graph, i, j) do
-          graph.elements[i][j] = Storage::MatrixStrategy::NO_VERTEX
-
-          if undirected?
-            graph.elements[j][i] = Storage::MatrixStrategy::NO_VERTEX
-          end
+          graph.elements[i].remove(j)
+          graph.elements[j].remove(i) if undirected?
         end
       end
 

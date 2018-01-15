@@ -25,11 +25,8 @@ module Graphs
       def remove(search_val)
         return if val.nil?
         if self.next.nil?
-          if val == search_val
-            @val = nil
-          else
-            return
-          end
+          return unless val == search_val
+          @val = nil
         end
 
         node = self

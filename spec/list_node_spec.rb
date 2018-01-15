@@ -1,25 +1,27 @@
-describe Graphs::ListNode do
+include Graphs::Components
+
+describe ListNode do
   describe "to_s" do
     it "returns 'nil' when blank" do
-      node = Graphs::ListNode.new
+      node = ListNode.new
       expect(node.to_s).to eq("nil")
     end
 
     it "returns val when single node" do
-      node = Graphs::ListNode.new(5)
+      node = ListNode.new(5)
       expect(node.to_s).to eq("5")
     end
 
     it "returns list of vals when multiple nodes" do
-      node = Graphs::ListNode.new(5)
-      node.next = Graphs::ListNode.new(6)
+      node = ListNode.new(5)
+      node.next = ListNode.new(6)
       expect(node.to_s).to eq("5 -> 6")
     end
   end
 
   describe "add" do
     it "successfully adds elements" do
-      list = Graphs::ListNode.new(5)
+      list = ListNode.new(5)
       list.add(6)
       list.add(7)
       expect(list.to_s).to eq("5 -> 6 -> 7")
@@ -28,19 +30,19 @@ describe Graphs::ListNode do
 
   describe "remove" do
     it "successfully sets to nil when single element and matching" do
-      list = Graphs::ListNode.new(5)
+      list = ListNode.new(5)
       list.remove(5)
       expect(list.to_s).to eq("nil")
     end
 
     it "does nothing when single element and non-matching" do
-      list = Graphs::ListNode.new(5)
+      list = ListNode.new(5)
       list.remove(6)
       expect(list.to_s).to eq("5")
     end
 
     it "successfully removes element when multiple elements" do
-      list = Graphs::ListNode.new(5)
+      list = ListNode.new(5)
       list.add(6)
       list.add(7)
 
@@ -50,7 +52,7 @@ describe Graphs::ListNode do
     end
 
     it "does nothing when multiple elements and non-matching" do
-      list = Graphs::ListNode.new(5)
+      list = ListNode.new(5)
       list.add(6)
       list.add(7)
 
@@ -62,7 +64,7 @@ describe Graphs::ListNode do
 
   describe "contains?" do
     it "returns false when val not in list" do
-      list = Graphs::ListNode.new(1)
+      list = ListNode.new(1)
       list.add(2)
       list.add(3)
 
@@ -70,7 +72,7 @@ describe Graphs::ListNode do
     end
 
     it "returns true when val in list" do
-      list = Graphs::ListNode.new(1)
+      list = ListNode.new(1)
       list.add(2)
       list.add(3)
 
@@ -81,7 +83,7 @@ describe Graphs::ListNode do
   describe "to_a" do
     context "empty list" do
       it "returns empty array" do
-        list = Graphs::ListNode.new
+        list = ListNode.new
 
         expect(list.to_a).to eq([])
       end
@@ -89,7 +91,7 @@ describe Graphs::ListNode do
 
     context "multi-element list" do
       it "returns an array representation of the list defined by node" do
-        list = Graphs::ListNode.new(1)
+        list = ListNode.new(1)
         list.add(2)
         list.add(3)
 

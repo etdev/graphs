@@ -21,7 +21,7 @@ require_relative "../lib/graphs"
 puts graph.to_s
 
 # run BFS on graph
-Graphs::BreadthFirstSearch.new(graph).run(0, 8) { |v, q| puts "Processing #{v}; q: #{q}" }
+Graphs::Traversals::BFS.new(graph).run(0, 8) { |v, q| puts "Processing #{v}; q: #{q}" }
 
 # print graph on screen
-Graphs::GraphPrinter.new(graph).print
+Graphs::Printers::SimplePrinter.new(graph).print

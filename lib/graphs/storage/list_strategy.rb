@@ -39,7 +39,7 @@ module Graphs
       private
 
       def construct_blank_graph(vertex_count)
-        Array.new(vertex_count) { ListNode.new }
+        Array.new(vertex_count) { Components::ListNode.new }
       end
     end
   end

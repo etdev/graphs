@@ -1,4 +1,4 @@
-describe Graphs::BreadthFirstSearch do
+describe Graphs::Traversals::BFS do
   before do
     @graph = Graphs::Graph.new(5)
     @graph.add_edge(0, 1)
@@ -8,7 +8,7 @@ describe Graphs::BreadthFirstSearch do
 
   describe "run" do
     it "runs block for elements in correct order" do
-      bfs = Graphs::BreadthFirstSearch.new(@graph)
+      bfs = Graphs::Traversals::BFS.new(@graph)
       expect { bfs.run(0, 4) { |v| puts v } }
         .to output("0\n1\n3\n4\n")
         .to_stdout

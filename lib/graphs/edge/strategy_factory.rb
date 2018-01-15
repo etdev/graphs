@@ -1,6 +1,6 @@
 module Graphs
   module Edge
-    class EdgeStrategyFactory
+    class StrategyFactory
       def for(storage_type, edge_type)
         case storage_type
         when :matrix

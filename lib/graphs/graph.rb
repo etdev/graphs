@@ -1,11 +1,14 @@
+require "graphs/edge/strategy_factory"
+require "graphs/storage/strategy_factory"
+
 module Graphs
   class Graph
     def initialize(vertex_count, storage_type: :list, edge_type: :directed)
-      @storage_strategy = StorageStrategyFactory.new.for(
+      @storage_strategy = Storage::StrategyFactory.new.for(
         storage_type,
         vertex_count
       )
-      @edge_strategy = Edge::EdgeStrategyFactory.new.for(
+      @edge_strategy = Edge::StrategyFactory.new.for(
         storage_type,
         edge_type
       )

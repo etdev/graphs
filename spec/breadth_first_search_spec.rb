@@ -1,6 +1,6 @@
 describe Graphs::Traversals::BFS do
   before do
-    @graph = Graphs::Graph.new(5)
+    @graph = Graphs::Graph.new(vertex_count: 5)
     @graph.add_edge(0, 1)
     @graph.add_edge(1, 3)
     @graph.add_edge(3, 4)

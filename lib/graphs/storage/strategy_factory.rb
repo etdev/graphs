@@ -1,10 +1,18 @@
 module Graphs
   module Storage
     class StrategyFactory
-      def for(storage_type, vertex_count)
-        case storage_type
-        when :list then Storage::ListStrategy.new(vertex_count)
-        when :matrix then Storage::MatrixStrategy.new(vertex_count)
+      def for(config)
+        case config.fetch(:storage_type)
+        when :list
+          Storage::ListStrategy.new(
+            vertex_count: config.fetch(:vertex_count),
+            edge_type: config.fetch(:edge_type)
+          )
+        when :matrix
+          Storage::MatrixStrategy.new(
+            vertex_count: config.fetch(:vertex_count),
+            edge_type: config.fetch(:edge_type)
+          )
         else raise UnknownStorageTypeError
         end
       end

@@ -17,13 +17,28 @@ module Graphs
       attr_accessor :elements
       attr_reader :vertex_count
 
-      def initialize(vertex_count)
+      def initialize(vertex_count:, edge_type:)
         @elements = construct_blank_graph(vertex_count)
         @vertex_count = vertex_count
+        @edge_type = edge_type
+      end
+
+      def add_edge(i, j)
+        with_bounds_check(vertex_count, i, j) do
+          elements[i].add(j)
+          elements[j].add(i) if undirected?
+        end
+      end
+
+      def remove_edge(i, j)
+        with_bounds_check(vertex_count, i, j) do
+          elements[i].remove(j)
+          elements[j].remove(i) if undirected?
+        end
       end
 
       def edge?(i, j)
-        with_bounds_check(self, i, j) do
+        with_bounds_check(vertex_count, i, j) do
           elements[i].contains?(j)
         end
       end
@@ -38,8 +53,14 @@ module Graphs
 
       private
 
+      attr_reader :edge_type
+
       def construct_blank_graph(vertex_count)
         Array.new(vertex_count) { Components::ListNode.new }
+      end
+
+      def undirected?
+        edge_type == :undirected
       end
     end
   end

@@ -1,7 +1,8 @@
 require_relative "../lib/graphs"
 
 # construct graph
- graph = Graphs::Graph.new(vertex_count: 9, edge_type: :undirected)
+ graph = Graphs::Graph.new(edge_type: :undirected)
+ graph.add_vertex(9)
  graph.add_edge(0, 1)
  graph.add_edge(1, 3)
  graph.add_edge(1, 4)
@@ -11,7 +12,7 @@ require_relative "../lib/graphs"
  graph.add_edge(7, 8)
  graph.add_edge(4, 8)
 
- #graph = Graphs::Graph.new(5, storage_type: :matrix, edge_type: :undirected)
+ #graph = Graphs::Graph.new(storage_type: :matrix, edge_type: :undirected)
  #graph.add_edge(0, 1)
  #graph.add_edge(1, 2)
  #graph.add_edge(1, 3)

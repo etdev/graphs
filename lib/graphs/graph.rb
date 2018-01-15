@@ -1,12 +1,10 @@
-require "graphs/edge/strategy_factory"
 require "graphs/storage/strategy_factory"
 
 module Graphs
   class Graph
     DEFAULT_CONFIG = {
       storage_type: :list,
-      edge_type: :directed,
-      vertex_count: 0
+      edge_type: :directed
     }.freeze
 
     def initialize(config = {})
@@ -32,6 +30,14 @@ module Graphs
 
     def elements
       storage_strategy.elements
+    end
+
+    def add_vertex(count)
+      storage_strategy.add_vertex(count)
+    end
+
+    def remove_vertex(count)
+      storage_strategy.remove_vertex(count)
     end
 
     def vertex_count

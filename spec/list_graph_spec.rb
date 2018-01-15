@@ -5,7 +5,8 @@ describe Graphs::Graph do
   context "when stored as adjacency list" do
     describe "creation" do
       it "creates blank graph successfully" do
-        graph = Graphs::Graph.new(vertex_count: 4)
+        graph = Graphs::Graph.new
+        graph.add_vertex(4)
         expect(graph.to_s).to eq(
           "[nil, nil, nil, nil]"
         )
@@ -15,7 +16,8 @@ describe Graphs::Graph do
     describe "adding edges" do
       context "undirected" do
         before do
-          @graph = Graphs::Graph.new(vertex_count: 4, edge_type: :undirected)
+          @graph = Graphs::Graph.new(edge_type: :undirected)
+          @graph.add_vertex(4)
         end
 
         it "adds edge successfully" do
@@ -35,7 +37,8 @@ describe Graphs::Graph do
 
       context "directed" do
         before do
-          @graph = Graphs::Graph.new(vertex_count: 4, edge_type: :directed)
+          @graph = Graphs::Graph.new(edge_type: :directed)
+          @graph.add_vertex(4)
         end
 
         it "adds edge successfully" do
@@ -53,7 +56,8 @@ describe Graphs::Graph do
     describe "removing edges" do
       context "undirected" do
         before do
-          @graph = Graphs::Graph.new(vertex_count: 4, edge_type: :undirected)
+          @graph = Graphs::Graph.new(edge_type: :undirected)
+          @graph.add_vertex(4)
         end
 
         it "removes edge successfully" do
@@ -75,7 +79,8 @@ describe Graphs::Graph do
 
       context "directed" do
         before do
-          @graph = Graphs::Graph.new(vertex_count: 4, edge_type: :directed)
+          @graph = Graphs::Graph.new(edge_type: :directed)
+          @graph.add_vertex(4)
         end
 
         it "removes edge successfully" do
@@ -96,7 +101,8 @@ describe Graphs::Graph do
 
     describe "edge?" do
       before do
-        @graph = Graphs::Graph.new(vertex_count: 4)
+        @graph = Graphs::Graph.new
+        @graph.add_vertex(4)
       end
 
       it "returns false when edge not found" do
@@ -115,7 +121,8 @@ describe Graphs::Graph do
 
     describe "incident_vertices" do
       before do
-        @graph = Graphs::Graph.new(vertex_count: 4)
+        @graph = Graphs::Graph.new
+        @graph.add_vertex(4)
       end
 
       it "returns an array of vertices incident to the supplied vertex" do

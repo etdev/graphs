@@ -14,13 +14,12 @@ module Graphs
     class ListStrategy
       include BoundsChecking
 
-      attr_accessor :elements
-      attr_reader :vertex_count
+      attr_reader :elements, :vertex_count
 
-      def initialize(vertex_count:, edge_type:)
-        @elements = construct_blank_graph(vertex_count)
-        @vertex_count = vertex_count
+      def initialize(edge_type)
         @edge_type = edge_type
+        @vertex_count = 0
+        @elements = construct_blank_graph
       end
 
       def add_edge(i, j)
@@ -43,6 +42,17 @@ module Graphs
         end
       end
 
+      def add_vertex(add_count = 1)
+        add_count.times { @elements << Components::ListNode.new }
+        @vertex_count += add_count
+      end
+
+      def remove_vertex(remove_count = 1)
+        return if (vertex_count - remove_count).negative?
+        @elements.pop(remove_count)
+        @vertex_count -= remove_count
+      end
+
       def incident_vertices(i)
         elements[i].to_a
       end
@@ -55,8 +65,8 @@ module Graphs
 
       attr_reader :edge_type
 
-      def construct_blank_graph(vertex_count)
-        Array.new(vertex_count) { Components::ListNode.new }
+      def construct_blank_graph
+        Array.new(0) { Components::ListNode.new }
       end
 
       def undirected?

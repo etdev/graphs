@@ -4,7 +4,8 @@ describe Graphs::Graph do
   context "when stored as an adjacency matrix" do
     describe "creation" do
       it "creates blank graph successfully" do
-        graph = Graphs::Graph.new(vertex_count: 4, storage_type: :matrix)
+        graph = Graphs::Graph.new(storage_type: :matrix)
+        graph.add_vertex(4)
         expect(graph.to_s).to eq(
           <<~STR.chomp
             ["0", "0", "0", "0"]
@@ -19,7 +20,8 @@ describe Graphs::Graph do
     describe "edges" do
       context "undirected" do
         before do
-          @graph = Graphs::Graph.new(vertex_count: 4, storage_type: :matrix, edge_type: :undirected)
+          @graph = Graphs::Graph.new(storage_type: :matrix, edge_type: :undirected)
+          @graph.add_vertex(4)
         end
 
         it "can check if edge exists" do
@@ -62,7 +64,8 @@ describe Graphs::Graph do
 
       context "directed" do
         before do
-          @graph = Graphs::Graph.new(vertex_count: 4, storage_type: :matrix, edge_type: :directed)
+          @graph = Graphs::Graph.new(storage_type: :matrix, edge_type: :directed)
+          @graph.add_vertex(4)
         end
 
         describe "adding edges" do
@@ -86,7 +89,8 @@ describe Graphs::Graph do
 
     describe "incident_vertices" do
       before do
-        @graph = Graphs::Graph.new(vertex_count: 4, storage_type: :matrix)
+        @graph = Graphs::Graph.new(storage_type: :matrix)
+        @graph.add_vertex(4)
       end
 
       it "returns an array of vertices incident to the supplied vertex" do

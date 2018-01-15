@@ -16,13 +16,12 @@ module Graphs
       HAS_VERTEX = 1
       NO_VERTEX = 0
 
-      attr_accessor :elements
-      attr_reader :vertex_count
+      attr_reader :elements, :vertex_count
 
-      def initialize(vertex_count:, edge_type:)
+      def initialize(edge_type)
         @edge_type = edge_type
-        @elements = construct_blank_graph(vertex_count)
-        @vertex_count = vertex_count
+        @vertex_count = 0
+        @elements = construct_blank_graph
       end
 
       def edge?(i, j)
@@ -45,6 +44,20 @@ module Graphs
         end
       end
 
+      def add_vertex(add_count = 1)
+        add_count.times { @elements << Array.new(vertex_count, NO_VERTEX) }
+        elements.each_index do |i|
+          add_count.times { @elements[i] << NO_VERTEX }
+        end
+        @vertex_count += add_count
+      end
+
+      def remove_vertex(remove_count = 1)
+        return if (vertex_count - remove_count).negative?
+        @elements.pop(remove_count)
+        @vertex_count -= remove_count
+      end
+
       def incident_vertices(i)
         (0...elements.size).each_with_object([]) do |j, vertices|
           vertices << j if edge?(i, j)
@@ -59,8 +72,8 @@ module Graphs
 
       attr_reader :edge_type
 
-      def construct_blank_graph(vertex_count)
-        Array.new(vertex_count) { Array.new(vertex_count, NO_VERTEX) }
+      def construct_blank_graph
+        Array.new(0) { Array.new(vertex_count, NO_VERTEX) }
       end
 
       def undirected?

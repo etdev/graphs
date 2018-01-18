@@ -1,59 +1,28 @@
-require "graphs/storage/strategy_factory"
-
 module Graphs
-  class Graph
-    DEFAULT_CONFIG = {
-      storage_type: :list,
-      edge_type: :directed
-    }.freeze
-
-    def initialize(config = {})
-      @config = DEFAULT_CONFIG.merge(config)
-      @storage_strategy = build_storage_strategy
+  class GraphFactory
+    def initialize(storage_type: :list, edge_type: :directed)
+      @storage_type = storage_type
+      @edge_type = edge_type
     end
 
-    def add_edge(i, j)
-      storage_strategy.add_edge(i, j)
-    end
-
-    def remove_edge(i, j)
-      storage_strategy.remove_edge(i, j)
-    end
-
-    def edge?(i, j)
-      storage_strategy.edge?(i, j)
-    end
-
-    def incident_vertices(i)
-      storage_strategy.incident_vertices(i)
-    end
-
-    def elements
-      storage_strategy.elements
-    end
-
-    def add_vertex(count)
-      storage_strategy.add_vertex(count)
-    end
-
-    def remove_vertex(count)
-      storage_strategy.remove_vertex(count)
-    end
-
-    def vertex_count
-      storage_strategy.vertex_count
-    end
-
-    def to_s
-      storage_strategy.to_s
+    def create
+      concrete_graph_class.new(edge_type: edge_type)
     end
 
     private
 
-    attr_reader :storage_strategy, :config
+    attr_reader :storage_type, :edge_type
 
-    def build_storage_strategy
-      Storage::StrategyFactory.new.for(config)
+    def concrete_graph_class
+      case storage_type
+      when :list
+        ListGraph
+      when :matrix
+        MatrixGraph
+      else raise UnknownStorageTypeError
+      end
     end
+
+    class UnknownStorageTypeError < StandardError; end
   end
 end

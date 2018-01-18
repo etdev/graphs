@@ -1,11 +1,11 @@
 require "pry"
 require "pry-byebug"
 
-describe Graphs::Graph do
+describe Graphs::GraphFactory do
   context "when stored as adjacency list" do
     describe "creation" do
       it "creates blank graph successfully" do
-        graph = Graphs::Graph.new
+        graph = Graphs::GraphFactory.new.create
         graph.add_vertex(4)
         expect(graph.to_s).to eq(
           "[nil, nil, nil, nil]"
@@ -16,7 +16,7 @@ describe Graphs::Graph do
     describe "adding edges" do
       context "undirected" do
         before do
-          @graph = Graphs::Graph.new(edge_type: :undirected)
+          @graph = Graphs::GraphFactory.new(edge_type: :undirected).create
           @graph.add_vertex(4)
         end
 
@@ -37,7 +37,7 @@ describe Graphs::Graph do
 
       context "directed" do
         before do
-          @graph = Graphs::Graph.new(edge_type: :directed)
+          @graph = Graphs::GraphFactory.new(edge_type: :directed).create
           @graph.add_vertex(4)
         end
 
@@ -56,7 +56,7 @@ describe Graphs::Graph do
     describe "removing edges" do
       context "undirected" do
         before do
-          @graph = Graphs::Graph.new(edge_type: :undirected)
+          @graph = Graphs::GraphFactory.new(edge_type: :undirected).create
           @graph.add_vertex(4)
         end
 
@@ -79,7 +79,7 @@ describe Graphs::Graph do
 
       context "directed" do
         before do
-          @graph = Graphs::Graph.new(edge_type: :directed)
+          @graph = Graphs::GraphFactory.new(edge_type: :directed).create
           @graph.add_vertex(4)
         end
 
@@ -101,7 +101,7 @@ describe Graphs::Graph do
 
     describe "edge?" do
       before do
-        @graph = Graphs::Graph.new
+        @graph = Graphs::GraphFactory.new.create
         @graph.add_vertex(4)
       end
 
@@ -121,7 +121,7 @@ describe Graphs::Graph do
 
     describe "incident_vertices" do
       before do
-        @graph = Graphs::Graph.new
+        @graph = Graphs::GraphFactory.new.create
         @graph.add_vertex(4)
       end
 

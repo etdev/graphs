@@ -1,10 +1,10 @@
 require "graphs"
 
-describe Graphs::Graph do
+describe Graphs::GraphFactory do
   context "when stored as an adjacency matrix" do
     describe "creation" do
       it "creates blank graph successfully" do
-        graph = Graphs::Graph.new(storage_type: :matrix)
+        graph = Graphs::GraphFactory.new(storage_type: :matrix).create
         graph.add_vertex(4)
         expect(graph.to_s).to eq(
           <<~STR.chomp
@@ -20,12 +20,12 @@ describe Graphs::Graph do
     describe "edges" do
       context "undirected" do
         before do
-          @graph = Graphs::Graph.new(storage_type: :matrix, edge_type: :undirected)
+          @graph = Graphs::GraphFactory.new(storage_type: :matrix, edge_type: :undirected).create
           @graph.add_vertex(4)
         end
 
         it "can check if edge exists" do
-          @graph.elements[1][2] = Graphs::Storage::MatrixStrategy::HAS_VERTEX
+          @graph.elements[1][2] = Graphs::MatrixGraph::HAS_VERTEX
           expect(@graph.edge?(1, 2)).to be true
         end
 
@@ -64,7 +64,7 @@ describe Graphs::Graph do
 
       context "directed" do
         before do
-          @graph = Graphs::Graph.new(storage_type: :matrix, edge_type: :directed)
+          @graph = Graphs::GraphFactory.new(storage_type: :matrix, edge_type: :directed).create
           @graph.add_vertex(4)
         end
 
@@ -89,7 +89,7 @@ describe Graphs::Graph do
 
     describe "incident_vertices" do
       before do
-        @graph = Graphs::Graph.new(storage_type: :matrix)
+        @graph = Graphs::GraphFactory.new(storage_type: :matrix).create
         @graph.add_vertex(4)
       end
 

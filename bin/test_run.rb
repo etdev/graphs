@@ -16,7 +16,7 @@ graph = GraphFactory
  graph.add_edge(7, 8)
  graph.add_edge(4, 8)
 
- #graph = Graphs::Graph.new(storage_type: :matrix, edge_type: :undirected)
+ #graph = Graphs::GraphFactory.new(storage_type: :matrix, edge_type: :undirected).create
  #graph.add_edge(0, 1)
  #graph.add_edge(1, 2)
  #graph.add_edge(1, 3)

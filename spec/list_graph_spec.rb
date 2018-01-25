@@ -1,14 +1,14 @@
 require "pry"
 require "pry-byebug"
 
-describe Graphs::GraphFactory do
+describe Graphs::Graph do
   context "when stored as adjacency list" do
     describe "creation" do
       it "creates blank graph successfully" do
-        graph = Graphs::GraphFactory.new.create
+        graph = Graphs::Graph.new
         graph.add_vertex(4)
         expect(graph.to_s).to eq(
-          "[nil, nil, nil, nil]"
+          "nil\nnil\nnil\nnil"
         )
       end
     end
@@ -16,7 +16,7 @@ describe Graphs::GraphFactory do
     describe "adding edges" do
       context "undirected" do
         before do
-          @graph = Graphs::GraphFactory.new(edge_type: :undirected).create
+          @graph = Graphs::Graph.new(edge_type: :undirected)
           @graph.add_vertex(4)
         end
 
@@ -37,7 +37,7 @@ describe Graphs::GraphFactory do
 
       context "directed" do
         before do
-          @graph = Graphs::GraphFactory.new(edge_type: :directed).create
+          @graph = Graphs::Graph.new(edge_type: :directed)
           @graph.add_vertex(4)
         end
 
@@ -56,7 +56,7 @@ describe Graphs::GraphFactory do
     describe "removing edges" do
       context "undirected" do
         before do
-          @graph = Graphs::GraphFactory.new(edge_type: :undirected).create
+          @graph = Graphs::Graph.new(edge_type: :undirected)
           @graph.add_vertex(4)
         end
 
@@ -79,7 +79,7 @@ describe Graphs::GraphFactory do
 
       context "directed" do
         before do
-          @graph = Graphs::GraphFactory.new(edge_type: :directed).create
+          @graph = Graphs::Graph.new(edge_type: :directed)
           @graph.add_vertex(4)
         end
 
@@ -101,7 +101,7 @@ describe Graphs::GraphFactory do
 
     describe "edge?" do
       before do
-        @graph = Graphs::GraphFactory.new.create
+        @graph = Graphs::Graph.new
         @graph.add_vertex(4)
       end
 
@@ -121,7 +121,7 @@ describe Graphs::GraphFactory do
 
     describe "incident_vertices" do
       before do
-        @graph = Graphs::GraphFactory.new.create
+        @graph = Graphs::Graph.new
         @graph.add_vertex(4)
       end
 

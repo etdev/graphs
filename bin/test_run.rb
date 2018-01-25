@@ -2,9 +2,8 @@ require_relative "../lib/graphs"
 include Graphs
 
 # construct graph
-graph = GraphFactory
+graph = Graph
   .new(storage_type: :list, edge_type: :directed)
-  .create
 
  graph.add_vertex(9)
  graph.add_edge(0, 1)
@@ -16,7 +15,7 @@ graph = GraphFactory
  graph.add_edge(7, 8)
  graph.add_edge(4, 8)
 
- #graph = Graphs::GraphFactory.new(storage_type: :matrix, edge_type: :undirected).create
+ #graph = Graphs::Graph.new(storage_type: :matrix, edge_type: :undirected)
  #graph.add_edge(0, 1)
  #graph.add_edge(1, 2)
  #graph.add_edge(1, 3)

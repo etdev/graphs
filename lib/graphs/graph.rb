@@ -1,24 +1,24 @@
-# Graph storage implementation using an adjacency list
-
-# If graph has an edge at (i, j), linked list i contains a node with value j
-# It not, it does not include this node
-
-# [ 00 -> 01 -> 02 -> 03,
-#   10 -> 11 -> 12 -> 13,
-#   20 -> 21 -> 22 -> 23,
-#   30 -> 31 -> 32 -> 33 ]
-
-# This depends on the ListNode class
 module Graphs
-  class ListGraph
+  class Graph
     include BoundsChecking
 
     attr_reader :elements, :vertex_count
 
-    def initialize(edge_type: :directed)
+    def initialize(storage_type: :list, edge_type: :directed)
       @edge_type = edge_type
+      @storage_type = storage_type
       @vertex_count = 0
       @elements = construct_blank_graph
+    end
+
+    def add_vertex(add_count = 1)
+      add_count.times { elements << vertex_list_class.new }
+
+      elements.each_index do |i|
+        add_count.times { elements[i].add_blank }
+      end
+
+      @vertex_count += add_count
     end
 
     def add_edge(i, j)
@@ -41,9 +41,8 @@ module Graphs
       end
     end
 
-    def add_vertex(add_count = 1)
-      add_count.times { @elements << Components::ListNode.new }
-      @vertex_count += add_count
+    def incident_vertices(i)
+      elements[i].to_a
     end
 
     def remove_vertex(remove_count = 1)
@@ -52,20 +51,26 @@ module Graphs
       @vertex_count -= remove_count
     end
 
-    def incident_vertices(i)
-      elements[i].to_a
-    end
-
     def to_s
-      "[#{elements.map(&:to_s).join(', ')}]"
+      elements.map(&:to_s).join("\n")
     end
 
-    private
-
-    attr_reader :edge_type
-
+    # different
     def construct_blank_graph
-      Array.new(0) { Components::ListNode.new }
+      Array.new(0) { vertex_list_class }
+    end
+
+    protected
+
+    attr_reader :edge_type, :storage_type
+
+    def vertex_list_class
+      case storage_type
+      when :list
+        Components::ListNode
+      when :matrix
+        Components::ArrayVertexList
+      end
     end
 
     def undirected?

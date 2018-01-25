@@ -22,6 +22,10 @@ module Graphs
         end
       end
 
+      def add_blank
+        # no-op
+      end
+
       def remove(search_val)
         return if val.nil?
         if self.next.nil?

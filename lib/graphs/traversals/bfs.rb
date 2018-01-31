@@ -8,7 +8,7 @@ module Graphs
         @graph = graph
       end
 
-      def run(source_idx, end_idx, &process_block)
+      def run(source_idx, end_idx)
         # queue of discovered but not yet processed vertices
         q = [source_idx]
         processed = Array.new(graph.vertex_count, false)
@@ -23,7 +23,7 @@ module Graphs
           v = q.shift
 
           # process node
-          process_block.call(v, q) if process_block
+          yield(v, q) if block_given?
           processed[v] = true
 
           # return if goal node found
@@ -43,6 +43,13 @@ module Graphs
           # push children onto queue
           q = q.push(*children)
         end
+      end
+
+      def shortest_path(start_idx, end_idx, path = [])
+        path << end_idx
+        return path.reverse if start_idx == end_idx || end_idx == -1
+
+        shortest_path(start_idx, @parents[end_idx], path)
       end
     end
   end

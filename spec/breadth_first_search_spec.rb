@@ -14,5 +14,11 @@ describe Graphs::Traversals::BFS do
         .to output("0\n1\n3\n4\n")
         .to_stdout
     end
+
+    it "stores correct shortest path" do
+      bfs = Graphs::Traversals::BFS.new(@graph)
+      bfs.run(0, 4)
+      expect(bfs.shortest_path(0, 4)).to eq([0,1,3,4])
+    end
   end
 end

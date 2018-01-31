@@ -55,7 +55,6 @@ module Graphs
       elements.map(&:to_s).join("\n")
     end
 
-    # different
     def construct_blank_graph
       Array.new(0) { vertex_list_class }
     end

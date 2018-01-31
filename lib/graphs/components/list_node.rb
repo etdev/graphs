@@ -22,6 +22,7 @@ module Graphs
         end
       end
 
+      # necessary to fulfill graph vertex list interface
       def add_blank
         # no-op
       end

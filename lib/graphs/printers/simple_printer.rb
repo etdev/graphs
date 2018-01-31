@@ -1,3 +1,4 @@
+require "set"
 require "green_shoes"
 
 module Graphs
@@ -15,7 +16,6 @@ module Graphs
 
       def print
         vt = vertices
-
         Shoes.app width: WIDTH + MARGIN, height: HEIGHT + MARGIN do
           vt.each do |v|
             oval v.x, v.y, VERTEX_RADIUS
@@ -39,7 +39,7 @@ module Graphs
 
       def generate_vertices
         vertex_placements.map.with_index do |(x, y), i|
-          vertex = Components::Vertex.new(i, x, y)
+          vertex = Vertex.new(i, x, y)
           graph.incident_vertices(i).each do |j|
             vertex.add_edge(j)
           end
@@ -76,6 +76,22 @@ module Graphs
       def col_indices
         (MARGIN..HEIGHT + MARGIN).step(y_distance_unit).to_a
       end
+
+      class Vertex
+        attr_reader :x, :y, :name, :edges
+
+        def initialize(name, x, y)
+          @name = name
+          @x = y
+          @y = x
+          @edges = Set.new
+        end
+
+        def add_edge(n)
+          @edges.add(n)
+        end
+      end
+      private_constant :Vertex
     end
   end
 end
